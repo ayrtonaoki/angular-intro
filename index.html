@@ -20,20 +20,22 @@
         </thead>
         <tbody>
           <tr ng-repeat="contact in contacts | filter:search">
-            <th> {{ contact.name }} </th>
-            <th> {{ contact.number }} </th>
-            <th> {{ contact.location }} </th>
+            <td> {{ contact.name }} </td>
+            <td> {{ contact.number }} </td>
+            <td> {{ contact.location }} </td>
+            <td><button ng-click="editContact(contact)" class="btn blue">Edit</button></td>
           </tr>
         </tbody>
       </table>
       <div class="row">
-        <a class=" waves-effect waves-light btn modal-trigger" href="#modal1">Add contact</a>
+        <a ng-click="openAddContact()" class=" waves-effect waves-light btn">Add contact</a>
       </div>
   </main>
 
   <div id="modal1" class="modal">
     <div class="modal-content">
-      <h4>Add contact</h4>
+      <h4 ng-if="!editing">Add contact</h4>
+      <h4 ng-if="editing">Edit contact</h4>
       <p>Type contact's data </p>
     </div>
     <div class="row">
@@ -46,9 +48,11 @@
         <label>Number</label>
       </div>
     </div>
+
     <div class="modal-footer">
-      <a ng-click="addContact(Contact)" class=" waves-effect waves-light btn blue" href="#modal1">Add</a>
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+      <a ng-if="!editing" ng-click="addContact(Contact)" class=" waves-effect waves-light btn blue">Add</a>
+      <a ng-if="editing" ng-click="saveContact(Contact)" class=" waves-effect waves-light btn blue">Save</a>
+      <a class="modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
   </div>
 
@@ -104,11 +108,35 @@
           }
         };
 
+        $scope.openAddContact = function () {
+          $scope.editing = false;
+          clearForm();
+          M.Modal.getInstance($('#modal1')).open();
+        };
+
         $scope.addContact = function (Contact) {
           Contact.location = location(Contact.number);
           $scope.contacts.push(Contact);
           M.Modal.getInstance($('#modal1')).close();
           clearForm();
+        };
+
+        $scope.editing = false
+
+        var contactEdit;
+
+        $scope.editContact = function (Contact) {
+          M.Modal.getInstance($('#modal1')).open();
+          $scope.editing = true;
+          angular.copy(Contact, $scope.Contact);
+          contactEdit = Contact;
+        };
+
+        $scope.saveContact = function (Contact) {
+          contactEdit.name = Contact.name;
+          contactEdit.number = Contact.number;
+          contactEdit.location = location(Contact.number);
+          M.Modal.getInstance($('#modal1')).close();
         };
 
         var clearForm = function () {
