@@ -90,6 +90,7 @@
           $scope.contacts.forEach(function (Contact) {
             Contact.location = location(Contact.number);
           });
+          clearForm();
         };
 
         var location = function (number) {
@@ -107,6 +108,15 @@
           Contact.location = location(Contact.number);
           $scope.contacts.push(Contact);
           M.Modal.getInstance($('#modal1')).close();
+          clearForm();
+        };
+
+        var clearForm = function () {
+          $scope.Contact = {
+            name: '',
+            number: '',
+            location: ''
+          };
         };
 
         init();
