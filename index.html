@@ -24,6 +24,7 @@
             <td> {{ contact.number }} </td>
             <td> {{ contact.location }} </td>
             <td><button ng-click="editContact(contact)" class="btn blue">Edit</button></td>
+            <td><button ng-click="deleteContact(contact)" class="btn red">Delete</button></td>
           </tr>
         </tbody>
       </table>
@@ -137,6 +138,15 @@
           contactEdit.number = Contact.number;
           contactEdit.location = location(Contact.number);
           M.Modal.getInstance($('#modal1')).close();
+        };
+
+        $scope.deleteContact = function (Contact) {
+          for (var index in $scope.contacts) {
+            var aux = $scope.contacts[index];
+            if (aux === Contact) {
+              $scope.contacts.splice(index, 1);
+            }
+          }
         };
 
         var clearForm = function () {
