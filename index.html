@@ -10,7 +10,7 @@
   <main class="container">
     <div class="row">
       <input type="text" ng-model="search" placeholder="Search...">
-      <table class="highlight">
+      <table class="striped">
         <thead>
           <tr>
             <th>Name</th>
@@ -26,10 +26,43 @@
           </tr>
         </tbody>
       </table>
-    </div>
+      <div class="row">
+        <a class=" waves-effect waves-light btn modal-trigger" href="#modal1">Add contact</a>
+      </div>
   </main>
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Add contact</h4>
+      <p>Type contact's data </p>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input placeholder="Name" id="first_name" type="text" class="validate" ng-model="Contact.name">
+        <label>Name</label>
+      </div>
+      <div class="input-field col s4">
+        <input placeholder="Number" id="first_name" type="text" class="validate" ng-model="Contact.number">
+        <label>Number</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a ng-click="addContact(Contact)" class=" waves-effect waves-light btn blue" href="#modal1">Add</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="lib/angular/angular.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems);
+    });
+  </script>
   <script>
     angular.module('myModule', [])
       .controller('indexController', function ($scope) {
@@ -54,8 +87,8 @@
         ];
 
         var init = function () {
-          $scope.contacts.forEach(function (contact) {
-            contact.location = location(contact.number)
+          $scope.contacts.forEach(function (Contact) {
+            Contact.location = location(Contact.number);
           });
         };
 
@@ -68,6 +101,12 @@
             case '31':
               return 'MG'
           }
+        };
+
+        $scope.addContact = function (Contact) {
+          Contact.location = location(Contact.number);
+          $scope.contacts.push(Contact);
+          M.Modal.getInstance($('#modal1')).close();
         };
 
         init();
