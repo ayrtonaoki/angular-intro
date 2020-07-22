@@ -3,59 +3,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
-<body ng-controller="indexController">
-  <header class="container">
-    <h1 ng-bind="title"></h1>
-  </header>
-  <main class="container">
-    <div class="row">
-      <input type="text" ng-model="search" placeholder="Search...">
-      <table class="striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Number</th>
-            <th>UF</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="contact in contacts | filter:search">
-            <td> {{ contact.name }} </td>
-            <td> {{ contact.number }} </td>
-            <td> {{ contact.location }} </td>
-            <td><button ng-click="editContact(contact)" class="btn blue">Edit</button></td>
-            <td><button ng-click="deleteContact(contact)" class="btn red">Delete</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="row">
-        <a ng-click="openAddContact()" class=" waves-effect waves-light btn">Add contact</a>
-      </div>
-  </main>
+<body>
 
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4 ng-if="!editing">Add contact</h4>
-      <h4 ng-if="editing">Edit contact</h4>
-      <p>Type contact's data </p>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <input placeholder="Name" id="first_name" type="text" class="validate" ng-model="Contact.name">
-        <label>Name</label>
-      </div>
-      <div class="input-field col s4">
-        <input placeholder="Number" id="first_name" type="text" class="validate" ng-model="Contact.number">
-        <label>Number</label>
-      </div>
-    </div>
-
-    <div class="modal-footer">
-      <a ng-if="!editing" ng-click="addContact(Contact)" class=" waves-effect waves-light btn blue">Add</a>
-      <a ng-if="editing" ng-click="saveContact(Contact)" class=" waves-effect waves-light btn blue">Save</a>
-      <a class="modal-close waves-effect waves-green btn-flat">Close</a>
-    </div>
-  </div>
+  <div ng-view></div>
 
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
