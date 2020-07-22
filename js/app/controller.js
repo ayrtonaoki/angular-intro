@@ -1,6 +1,5 @@
 angular.module('myModule')
   .controller('indexController', function ($scope) {
-    $scope.title = 'Contacts list';
     $scope.contacts = [
       {
         name: 'Camila',
@@ -41,13 +40,17 @@ angular.module('myModule')
     $scope.openAddContact = function () {
       $scope.editing = false;
       clearForm();
-      M.Modal.getInstance($('#modal1')).open();
+      var Modalelem = document.querySelector('#modal1');
+      var instance = M.Modal.init(Modalelem);
+      instance.open();
     };
 
     $scope.addContact = function (Contact) {
       Contact.location = location(Contact.number);
       $scope.contacts.push(Contact);
-      M.Modal.getInstance($('#modal1')).close();
+      var Modalelem = document.querySelector('#modal1');
+      var instance = M.Modal.init(Modalelem);
+      instance.close();
       clearForm();
     };
 
@@ -56,7 +59,9 @@ angular.module('myModule')
     var contactEdit;
 
     $scope.editContact = function (Contact) {
-      M.Modal.getInstance($('#modal1')).open();
+      var Modalelem = document.querySelector('#modal1');
+      var instance = M.Modal.init(Modalelem);
+      instance.open();
       $scope.editing = true;
       angular.copy(Contact, $scope.Contact);
       contactEdit = Contact;
@@ -66,7 +71,9 @@ angular.module('myModule')
       contactEdit.name = Contact.name;
       contactEdit.number = Contact.number;
       contactEdit.location = location(Contact.number);
-      M.Modal.getInstance($('#modal1')).close();
+      var Modalelem = document.querySelector('#modal1');
+      var instance = M.Modal.init(Modalelem);
+      instance.close();
     };
 
     $scope.deleteContact = function (Contact) {
@@ -87,4 +94,6 @@ angular.module('myModule')
     };
 
     init();
+  })
+  .controller('homeController', function ($scope) {
   })
