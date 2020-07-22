@@ -1,0 +1,25 @@
+{
+  "name": "angular-intro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayrtonaoki/angular-intro.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ayrtonaoki/angular-intro/issues"
+  },
+  "homepage": "https://github.com/ayrtonaoki/angular-intro#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
